@@ -23,7 +23,7 @@ all examples below assume you are running in an `async` function.
 ### Setting up the client
 
 ```javascript
-const { SquidexClientManager } = require('@scanf/squidex-client-manager');
+const { SquidexClientManager } = require('squidex-client-manager');
   
 const specUrl = 'https://cloud.squidex.io/api/content/<my-app>/swagger/v1/swagger.json';
 const token = 'my-secret-token';
