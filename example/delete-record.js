@@ -1,4 +1,4 @@
-const { SquidexClientManager } = require('../src/index');
+const { SquidexClientManager } = require('squidex-client-manager');
 require('dotenv').config();
 
 const main = async () => {
