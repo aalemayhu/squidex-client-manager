@@ -184,7 +184,7 @@ class SquidexClientManager {
   /**
    * Create or update a record content
    * @param {the API endpoint} name
-   * @param {the object to create or update payload
+   * @param {the object to create or update} payload
    * @param {the unique field to identify} fieldName
    */
   async CreateOrUpdateAsync(name, payload, fieldName) {
