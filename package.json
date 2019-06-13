@@ -1,7 +1,14 @@
 {
   "name": "squidex-client-manager",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a client for interacting with the Squidex API",
+  "keywords": [
+    "squidex",
+    "squidex-api",
+    "swagger",
+    "squidex-client-manager",
+    "client"
+  ],
   "main": "src/index.js",
   "repository": "https://github.com/scanf/squidex-client-manager",
   "author": "Alexander Alemayhu <alexander@alemayhu.com>",
