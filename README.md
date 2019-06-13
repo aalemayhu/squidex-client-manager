@@ -9,6 +9,16 @@ Please note all examples below use `cloud.squidex.io` in the examples but you
 can easily change out the `https://cloud.squidex.io/api` portion with the
 following format `https://<my-server-url>/api/` for self-hosted version.
 
+## What is Squidex?
+
+[Squidex][s] is a open source headless CMS. To learn more about it checkout the
+following links:
+
+- [Docker containers](https://github.com/squidex/squidex-dockers)
+- [Source code](https://github.com/squidex/squidex)
+- [Documentation](https://docs.squidex.io)
+- [Hosted][s]
+
 ## Usage
 
 You need to setup the client before using it. The minimial requirement is the
@@ -281,3 +291,4 @@ The project is developed and maintained by [Alexander Alemayhu][twitter].
 [twitter]: https://twitter.com/aalemayhu
 [oc]: https://docs.squidex.io/guides/02-api#odata-conventions
 [i]: https://github.com/scanf/squidex-client-manager/issues/new
+[s]: https://squidex.io
