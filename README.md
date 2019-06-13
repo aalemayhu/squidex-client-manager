@@ -1,4 +1,4 @@
-# Squidex Client Manager
+# Squidex Client Manager [![npm version](https://badge.fury.io/js/squidex-client-manager.svg)](https://badge.fury.io/js/squidex-client-manager)
 
 This is a wrapper around the swagger [API][a] provided by Squidex.
 
