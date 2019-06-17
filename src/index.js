@@ -28,6 +28,13 @@ class SquidexClientManager {
   constructor(specUrl, accessToken) {
     this.specUrl = specUrl;
     this.accessToken = accessToken;
+
+    if (!specUrl) {
+      throw new Error('Missing OpenAPI Specification');
+    }
+    if (!accessToken) {
+      throw new Error('Missing access token');
+    }
   }
 
   /**
