@@ -1,5 +1,7 @@
 # Squidex Client Manager [![npm version](https://badge.fury.io/js/squidex-client-manager.svg)](https://badge.fury.io/js/squidex-client-manager)
 
+[![Powered by Squidex](./GitHub/power-by.png)](https://squidex.io)
+
 This is a wrapper around the swagger [API][a] provided by Squidex.
 
 > The project is still a in early phase so the featureset is limited.
