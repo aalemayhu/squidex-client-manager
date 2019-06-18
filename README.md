@@ -23,7 +23,7 @@ following links:
 ## Usage
 
 You need to setup the client before using it. The minimal requirement is the
-URL for the OpenAPI specification and a valid token. 
+URL for the OpenAPI specification and valid client credentials. 
 
 1. To find the API spec URL visit `https://cloud.squidex.io/api/content/<my-app>/docs`
 2. For getting values for the client see `https://cloud.squidex.io/app/<my-app>/settings/clients`
