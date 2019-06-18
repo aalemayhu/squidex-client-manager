@@ -8,9 +8,13 @@ import { SquidexClientManager } from '../src/index';
 
 dotenv.config();
 
-const specUrl = 'https://cloud.squidex.io/api/content/my-blog-squidex/swagger/v1/swagger.json';
-const token = process.env.SQUIDEX_ACCESS_TOKEN;
-const client = new SquidexClientManager(specUrl, token);
+const specUrl = process.env.SQUIDEX_SPEC_URL;
+const url = process.env.SQUIDEX_CONNECT_URL;
+const clientId = process.env.SQUIDEX_CLIENT_ID;
+const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
+const cacheFile = '/tmp/squidex-my-app-token.json';
+
+const client = new SquidexClientManager(url, clientId, clientSecret, cacheFile);
 
 function uniqueString(prefix) {
   const dateStamp = new Date().toString();
@@ -28,7 +32,7 @@ async function simpleWriteCheck(t, modelName, payload) {
 }
 
 test.before('Get Models', async (t) => {
-  await client.ConfigureAsync();
+  await client.ConfigureAsync(specUrl);
   const models = client.Models();
   t.true(Object.keys(models).length > 0);
 });

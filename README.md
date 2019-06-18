@@ -2,8 +2,7 @@
 
 This is a wrapper around the swagger [API][a] provided by Squidex.
 
-> The project is still a in early phase so the featureset is limited but if you
-> can generate a token it's usable for you ;-)
+> The project is still a in early phase so the featureset is limited.
 
 Please note all examples below use `cloud.squidex.io` in the examples but you
 can easily change out the `https://cloud.squidex.io/api` portion with the
@@ -35,13 +34,22 @@ all examples below assume you are running in an `async` function.
 ```javascript
 const { SquidexClientManager } = require('squidex-client-manager');
   
-const specUrl = 'https://cloud.squidex.io/api/content/<my-app>/swagger/v1/swagger.json';
-const token = 'my-secret-token';
-  
-const client = new SquidexClientManager(specUrl, token);
+const specUrl = process.env.SQUIDEX_SPEC_URL;
+const url = process.env.SQUIDEX_CONNECT_URL;
+const clientId = process.env.SQUIDEX_CLIENT_ID;
+const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
+const cacheFile = '/tmp/squidex-my-app-token.json';
+
+const client = new SquidexClientManager(
+  url: 'https://cloud.squidex.io/identity-server/connect/token', 
+  clientId: 'my-blog-squidex:developer', 
+  clientSecret: 'my-secret', 
+  cacheFile: '/tmp/optional-field-for-debug-cache-file.json'
+);
 
 try {
-  await client.ConfigureAsync();
+  let specUrl = 'https://cloud.squidex.io/api/content/<my-app>/swagger/v1/swagger.json'
+  await client.ConfigureAsync(specUrl);
 } catch (error) {
   console.log('Failed to setup the CMS. Please check token is setup!');
   console.error(error);

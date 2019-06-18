@@ -2,6 +2,7 @@
 const Swagger = require('swagger-client');
 
 const { Log } = require('./logger');
+const { SquidexTokenManager } = require('./token_manager');
 
 const {
   deleteCache, saveCache, cached, savePayload,
@@ -25,30 +26,43 @@ function ensureValidResponse(response, status) {
  *
  */
 class SquidexClientManager {
-  constructor(specUrl, accessToken) {
-    this.specUrl = specUrl;
-    this.accessToken = accessToken;
+  constructor(url, id, secret, cacheFile) {
+    this.tokenManager = new SquidexTokenManager(url, id, secret, cacheFile);
 
-    if (!specUrl) {
-      throw new Error('Missing OpenAPI Specification');
+    if (!url) {
+      throw new Error('Missing client url');
     }
-    if (!accessToken) {
-      throw new Error('Missing access token');
+    if (!id) {
+      throw new Error('Missing client id');
+    }
+    if (!secret) {
+      throw new Error('Missing client secret');
     }
   }
 
   /**
    * Connect to the Swagger API
    */
-  async ConfigureAsync() {
-    const self = this;
+  async ConfigureAsync(specUrl) {
+    this.specUrl = specUrl;
+    await this.ensureValidClient();
+  }
+
+  async ensureValidClient() {
+    // Make sure we have a valid token before proceeding
+    if (this.client && this.tokenManager.isTokenValid()) {
+      return;
+    }
+
+    const token = await this.tokenManager.getToken();
+
     this.client = await new Swagger({
-      url: self.specUrl,
+      url: this.specUrl,
       requestInterceptor: (req) => {
         if (req.body && !req.headers['Content-Type']) {
           req.headers['Content-Type'] = 'application/json';
         }
-        req.headers.Authorization = `Bearer ${self.accessToken}`;
+        req.headers.Authorization = `Bearer ${token}`;
       },
     });
   }
@@ -81,6 +95,7 @@ class SquidexClientManager {
    * @param {the query options} opts
    */
   async RecordsAsync(modelName, opts) {
+    await this.ensureValidClient();
     Log.Debug(`Records(${modelName}, ${opts})`);
     const model = this.GetModelByName(modelName);
     // Query the contents of the endpoint
@@ -96,6 +111,7 @@ class SquidexClientManager {
    * TODO: delete this function
    */
   async RecordAsync(modelName, payload) {
+    await this.ensureValidClient();
     Log.Debug(`Record(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
     const response = await model[`Get${modelName}Content`](payload);
@@ -113,6 +129,7 @@ class SquidexClientManager {
    * @param {the object representing what to create} payload
    */
   async CreateAsync(modelName, payload) {
+    await this.ensureValidClient();
     Log.Debug(`Create(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
     const response = await model[`Create${modelName}Content`](payload);
@@ -128,6 +145,7 @@ class SquidexClientManager {
    * @param {the object containing the id property} payload
    */
   async DeleteAsync(modelName, payload) {
+    await this.ensureValidClient();
     Log.Debug(`Delete(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
     const response = await model[`Delete${modelName}Content`](payload);
@@ -144,6 +162,7 @@ class SquidexClientManager {
    * @param {the object containing the id property} payload
    */
   async UpdateAsync(modelName, payload) {
+    await this.ensureValidClient();
     Log.Debug(`Update(${modelName}, ${payload})`);
     try {
       const model = this.GetModelByName(modelName);
@@ -169,6 +188,7 @@ class SquidexClientManager {
    * @param {the filter field name} fieldName
    */
   async FilterRecordsAsync(name, payload, fieldName) {
+    await this.ensureValidClient();
     const uniqueValue = payload.data[`${fieldName}`].iv;
     Log.Debug(`filter ${name} where ${fieldName} eq ${uniqueValue}`);
 
@@ -195,6 +215,7 @@ class SquidexClientManager {
    * @param {the unique field to identify} fieldName
    */
   async CreateOrUpdateAsync(name, payload, fieldName) {
+    await this.ensureValidClient();
     Log.Debug(`CreateOrUpdate(${name}, ${payload}, ${fieldName})`);
     const records = await this.FilterRecordsAsync(name, payload, fieldName);
     const self = this;

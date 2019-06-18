@@ -2,12 +2,15 @@ const { SquidexClientManager } = require('squidex-client-manager');
 require('dotenv').config();
 
 const main = async () => {
-  const specUrl = 'https://cloud.squidex.io/api/content/my-blog-squidex/swagger/v1/swagger.json';
-  const token = process.env.SQUIDEX_ACCESS_TOKEN;
+  const specUrl = process.env.SQUIDEX_SPEC_URL;
+  const url = process.env.SQUIDEX_CONNECT_URL;
+  const clientId = process.env.SQUIDEX_CLIENT_ID;
+  const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
+  const cacheFile = '/tmp/squidex-my-app-token.json';
 
-  const client = new SquidexClientManager(specUrl, token);
+  const client = new SquidexClientManager(url, clientId, clientSecret, cacheFile);
   try {
-    await client.ConfigureAsync();
+    await client.ConfigureAsync(specUrl);
   } catch (error) {
     console.log('Failed to setup the CMS. Please check token is setup!');
     console.error(error);
