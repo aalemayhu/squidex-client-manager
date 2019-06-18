@@ -280,7 +280,7 @@ console.log(JSON.stringify(filter, null, 2));
 ## Disclaimer
 
 This project is not affiliated with [Squidex][0] and is an unofficial client.
-The project is developed and maintained by [Alexander Alemayhu][twitter].
+The project is developed and maintained by [Alexander Alemayhu][twitter] for [Fortress][f].
 
 ## Troubleshooting
 
@@ -295,3 +295,4 @@ The project is developed and maintained by [Alexander Alemayhu][twitter].
 [oc]: https://docs.squidex.io/guides/02-api#odata-conventions
 [i]: https://github.com/scanf/squidex-client-manager/issues/new
 [s]: https://squidex.io
+[f]: https://fortress.no/
