@@ -20,30 +20,25 @@ following links:
 
 ## Usage
 
-You need to setup the client before using it. The minimial requirement is the
-url for the OpenAPI specification and a valid token. 
+You need to setup the client before using it. The minimal requirement is the
+URL for the OpenAPI specification and a valid token. 
 
-1. To find the API spec url visit `https://cloud.squidex.io/api/content/<my-app>/docs`
-2. For a getting a token see `https://cloud.squidex.io/app/<my-app>/settings/clients`
+1. To find the API spec URL visit `https://cloud.squidex.io/api/content/<my-app>/docs`
+2. For getting values for the client see `https://cloud.squidex.io/app/<my-app>/settings/clients`
 
-When you have those two values you can setup the client. but please note that
-all examples below assume you are running in an `async` function.
+When you have those values you can setup the client. Note that all examples
+below assume you are running in an `async` function.
 
 ### Setting up the client
 
 ```javascript
 const { SquidexClientManager } = require('squidex-client-manager');
   
-const specUrl = process.env.SQUIDEX_SPEC_URL;
-const url = process.env.SQUIDEX_CONNECT_URL;
-const clientId = process.env.SQUIDEX_CLIENT_ID;
-const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
-const cacheFile = '/tmp/squidex-my-app-token.json';
-
 const client = new SquidexClientManager(
   url: 'https://cloud.squidex.io/identity-server/connect/token', 
   clientId: 'my-blog-squidex:developer', 
   clientSecret: 'my-secret', 
+  // cacheFile is not required but useful for debugging
   cacheFile: '/tmp/optional-field-for-debug-cache-file.json'
 );
 
