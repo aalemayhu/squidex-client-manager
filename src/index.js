@@ -233,17 +233,11 @@ class SquidexClientManager {
   async CreateOrUpdateAsync(name, payload, fieldName) {
     await this.ensureValidClient();
     Log.Debug(`CreateOrUpdate(${name}, ${payload}, ${fieldName})`);
-    const records = await this.FilterRecordsAsync(name, payload, fieldName);
+    const uniqueValue = payload.data[`${fieldName}`].iv;
+    const record = await this.FindOne(name, fieldName, uniqueValue);
     const self = this;
-
-    if (records.length > 1) {
-      throw new Error('found multiple records for unique field!');
-    }
-
-    const record = records[0];
     if (record) {
       const update = await self.UpdateAsync(name, { id: record.id, data: payload.data });
-      const uniqueValue = payload.data[`${fieldName}`].iv;
       const cacheEntry = { id: null, data: update };
       if (update && !update.id) {
         update.id = record.id;
