@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/s
+    docker:
+      - image: circleci/node:stretch
+    steps:
+      - checkout
+      - run:
+          name: 'Install Yarn'
+          command: |
+            curl -o- -L https://yarnpkg.com/install.sh | bash
+      - run:
+          name: 'Install dependencies'
+          command: |
+            yarn install
+      - run:
+          name: 'Run eslinter'
+          command: |
+            yarn run lint-fix
+      - run:
+          name: 'Run tests'
+          command: |
+            yarn run test
+      - run: echo DONE
