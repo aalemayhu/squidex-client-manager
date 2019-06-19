@@ -160,21 +160,14 @@ class SquidexClientManager {
   async UpdateAsync(modelName, payload) {
     await this.ensureValidClient();
     Log.Debug(`Update(${modelName}, ${payload})`);
-    try {
-      const model = this.GetModelByName(modelName);
-      const response = await model[`Update${modelName}Content`](payload);
-      /**
+    const model = this.GetModelByName(modelName);
+    const response = await model[`Update${modelName}Content`](payload);
+    /**
      * 200 OK
      * The standard response for successful HTTP requests.
      */
-      ensureValidResponse(response, 200);
-      return response.obj;
-    } catch (error) {
-      savePayload(modelName, payload);
-      Log.Info(`update failed -> payload:${JSON.stringify(payload, null, 2)}`);
-      Log.Error(error);
-      return null;
-    }
+    ensureValidResponse(response, 200);
+    return response.obj;
   }
 
   /**
