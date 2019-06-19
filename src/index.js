@@ -182,6 +182,22 @@ class SquidexClientManager {
   }
 
   /**
+   * Retrieve one item
+   * @param {the API endpoint} name
+   * @param {the field for the filter} identifier
+   * @param {the unique filter value} value
+   */
+  async FindOne(name, identifier, value) {
+    await this.ensureValidClient();
+    const filter = `data/${identifier}/iv eq '${value}'`;
+    const records = await this.RecordsAsync(name, {
+      $filter: filter,
+      $top: 1,
+    });
+    return records.items[0];
+  }
+
+  /**
    * Filter record contents
    * @param {the API endpoint} name
    * @param {the object to use for filtering} payload

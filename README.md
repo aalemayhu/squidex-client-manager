@@ -279,6 +279,35 @@ console.log(JSON.stringify(filter, null, 2));
 */
 ```
 
+#### Find open
+
+```javascript
+const record = await client.FindOne('Articles', 'title', 'Hello Squidex');
+console.log(JSON.stringify(record, null, 2));
+/* Output:
+[squidex-client-manager][debug]: Records(Articles, [object Object])
+[squidex-client-manager][debug]: GetModelByName(Articles)
+{
+  "id": "ffcbecb0-07a0-45f5-9b8e-bf53059fe25d",
+  "createdBy": "subject:5ce8610ec020db00018051c7",
+  "lastModifiedBy": "subject:5ce8610ec020db00018051c7",
+  "data": {
+    "title": {
+      "iv": "Hello Squidex"
+    },
+    "text": {
+      "iv": "## Testing markdown support"
+    }
+  },
+  "isPending": false,
+  "created": "2019-06-12T17:24:38Z",
+  "lastModified": "2019-06-12T17:24:38Z",
+  "status": "Published",
+  "version": 1
+}
+*/
+```
+
 ## Disclaimer
 
 This project is not affiliated with [Squidex][0] and is an unofficial client.
