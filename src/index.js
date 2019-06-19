@@ -1,12 +1,8 @@
 // The API is generated from the swagger-js module
 const Swagger = require('swagger-client');
 
-const { Log } = require('./logger');
 const { SquidexTokenManager } = require('./token_manager');
-
-const {
-  deleteCache, saveCache, cached, savePayload,
-} = require('./cache');
+const { Log } = require('./logger');
 
 /**
  * Check response status is correct
@@ -207,20 +203,9 @@ class SquidexClientManager {
     await this.ensureValidClient();
     const uniqueValue = payload.data[`${fieldName}`].iv;
     Log.Debug(`filter ${name} where ${fieldName} eq ${uniqueValue}`);
-
-    const c = cached(name, fieldName, uniqueValue);
-    if (c && !c.length === 0) {
-      return c;
-    }
-
     const records = await this.RecordsAsync(name, {
       $filter: `data/${fieldName}/iv eq '${uniqueValue}'`,
     });
-
-    saveCache(name, fieldName, uniqueValue, records.items);
-
-    // const msg = `filter got ${records.items.length} items`;
-    // Log.Debug(msg);
     return records.items;
   }
 
@@ -245,11 +230,8 @@ class SquidexClientManager {
       } else if (update && update.id) {
         cacheEntry.id = update.id;
       } else {
-        // We can't cache this so invalidate the cache
-        deleteCache(name, fieldName, uniqueValue);
         return update;
       }
-      saveCache(name, fieldName, uniqueValue, [cacheEntry]);
       return update;
     }
     const create = await this.CreateAsync(name, payload);
@@ -258,4 +240,3 @@ class SquidexClientManager {
 }
 
 module.exports.SquidexClientManager = SquidexClientManager;
-module.exports.savePayload = savePayload;
