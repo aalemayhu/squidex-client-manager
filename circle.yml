@@ -15,6 +15,10 @@ jobs:
           command: |
             yarn install
       - run:
+          name: 'Fix path to module'
+          command: |
+            sed -i -e "s=squidex-client-manager=../src/index.js="
+      - run:
           name: 'Run eslinter'
           command: |
             yarn run lint-fix
