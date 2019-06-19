@@ -17,7 +17,7 @@ jobs:
       - run:
           name: 'Fix path to module'
           command: |
-            sed -i -e "s=squidex-client-manager=../src/index.js="
+            sed -i -e "s=squidex-client-manager=../src/index.js=" examples/*
       - run:
           name: 'Run eslinter'
           command: |
