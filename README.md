@@ -1,4 +1,4 @@
-# Squidex Client Manager [![npm version](https://badge.fury.io/js/squidex-client-manager.svg)](https://badge.fury.io/js/squidex-client-manager)
+# Squidex Client Manager [![npm version](https://badge.fury.io/js/squidex-client-manager.svg)](https://badge.fury.io/js/squidex-client-manager) [![CircleCI](https://circleci.com/gh/scanf/squidex-client-manager.svg?style=svg)](https://circleci.com/gh/scanf/squidex-client-manager)
 
 [![Powered by Squidex](./GitHub/power-by.png)](https://squidex.io)
 
