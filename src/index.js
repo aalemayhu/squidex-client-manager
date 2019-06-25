@@ -1,5 +1,10 @@
+const fs = require('fs');
+
 // The API is generated from the swagger-js module
 const Swagger = require('swagger-client');
+const FormData = require('form-data');
+const mime = require('mime-types');
+const axios = require('axios');
 
 const { SquidexTokenManager } = require('./token_manager');
 const { Log } = require('./logger');
@@ -230,6 +235,40 @@ class SquidexClientManager {
     const create = await this.CreateAsync(name, payload);
     return create;
   }
-}
 
+  async CreateAssetAsync(url, assetUrl) {
+    this.ensureValidClient();
+    const token = this.tokenManager.getToken();
+
+    Log.Debug(`CreateAssetAsync(${url}, ${assetUrl})`);
+
+
+    const compos = assetUrl.split('/');
+    const filename = compos[compos.length - 1];
+    const form = new FormData();
+
+    // public void Add (HttpContent content, string name, string fileName);
+    // TODO: handle assetUrl is https url
+    form.append('content', fs.createReadStream(assetUrl));
+    form.append('name', filename);
+    form.append('filename', filename);
+
+    try {
+      const response = await axios({
+        method: 'post',
+        url,
+        data: form,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // eslint-disable-next-line no-underscore-dangle
+          'content-type': `${mime.contentType(filename)} boundary=${form._boundary}`,
+        },
+      });
+      return response;
+    } catch (error) {
+      Log.Error(error);
+      return null;
+    }
+  }
+}
 module.exports.SquidexClientManager = SquidexClientManager;
