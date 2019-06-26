@@ -16,7 +16,7 @@ const main = async () => {
     console.error(error);
     process.exit(1);
   }
-  const records = await client.RecordsAsync('Articles', {});
+  const records = await client.RecordsAsync('Articles', {top: 0});
   console.log(JSON.stringify(records, null, 2));
 };
 

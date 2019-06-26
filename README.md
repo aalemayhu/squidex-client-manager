@@ -56,8 +56,11 @@ try {
 
 ### Retrieving records
 
+By default only `20` records are returned, the max is `200` but setting it to
+`0` will return all of them.
+
 ```javascript
-const records = await client.RecordsAsync('Articles', {});
+const records = await client.RecordsAsync('Articles', {top: 0});
 console.log(JSON.stringify(records, null, 2));
 /* Output:
 [squidex-client-manager][debug]: Records(Articles, [object Object])
