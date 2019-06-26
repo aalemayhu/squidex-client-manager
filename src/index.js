@@ -178,7 +178,10 @@ class SquidexClientManager {
    */
   async FindOne(name, identifier, value) {
     await this.ensureValidClient();
-    const filter = `data/${identifier}/iv eq '${value}'`;
+    let filter = `data/${identifier}/iv eq '${value}'`;
+    if (typeof value === 'number') {
+      filter = `data/${identifier}/iv eq ${value}`;
+    }
     const records = await this.RecordsAsync(name, {
       $filter: filter,
       $top: 1,
