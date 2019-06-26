@@ -2,6 +2,7 @@
 const Swagger = require('swagger-client');
 
 const { SquidexTokenManager } = require('./token_manager');
+const { buildFilterString } = require('./filter');
 const { Log } = require('./logger');
 
 /**
@@ -178,10 +179,7 @@ class SquidexClientManager {
    */
   async FindOne(name, identifier, value) {
     await this.ensureValidClient();
-    let filter = `data/${identifier}/iv eq '${value}'`;
-    if (typeof value === 'number') {
-      filter = `data/${identifier}/iv eq ${value}`;
-    }
+    const filter = buildFilterString(`data/${identifier}/iv`, 'eq', value);
     const records = await this.RecordsAsync(name, {
       $filter: filter,
       $top: 1,
@@ -198,9 +196,11 @@ class SquidexClientManager {
   async FilterRecordsAsync(name, payload, fieldName) {
     await this.ensureValidClient();
     const uniqueValue = payload.data[`${fieldName}`].iv;
-    Log.Debug(`filter ${name} where ${fieldName} eq ${uniqueValue}`);
+    const filter = buildFilterString(`data/${fieldName}/iv`, 'eq', uniqueValue);
+    Log.Debug(`filter ${filter}`);
     const records = await this.RecordsAsync(name, {
-      $filter: `data/${fieldName}/iv eq '${uniqueValue}'`,
+      $filter: filter,
+      top: 0,
     });
     return records.items;
   }
