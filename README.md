@@ -23,7 +23,7 @@ following links:
 ## Usage
 
 You need to setup the client before using it. The minimal requirement is the
-URL for the OpenAPI specification and valid client credentials. 
+URL for the OpenAPI specification and valid client credentials.
 
 1. To find the API spec URL visit `https://cloud.squidex.io/api/content/<my-app>/docs`
 2. For getting values for the client see `https://cloud.squidex.io/app/<my-app>/settings/clients`
@@ -35,11 +35,11 @@ below assume you are running in an `async` function.
 
 ```javascript
 const { SquidexClientManager } = require('squidex-client-manager');
-  
+
 const client = new SquidexClientManager(
-  url: 'https://cloud.squidex.io/identity-server/connect/token', 
-  clientId: 'my-blog-squidex:developer', 
-  clientSecret: 'my-secret', 
+  url: 'https://cloud.squidex.io/identity-server/connect/token',
+  clientId: 'my-blog-squidex:developer',
+  clientSecret: 'my-secret',
   // cacheFile is not required but useful for debugging
   cacheFile: '/tmp/optional-field-for-debug-cache-file.json'
 );
@@ -60,8 +60,8 @@ By default only `20` records are returned, the max is `200` but setting it to
 `0` will return all of them.
 
 ```javascript
-const records = await client.RecordsAsync('Articles', {top: 0});
-console.log(JSON.stringify(records, null, 2));
+const records = await client.RecordsAsync('Articles', { top: 0 })
+console.log(JSON.stringify(records, null, 2))
 /* Output:
 [squidex-client-manager][debug]: Records(Articles, [object Object])
 [squidex-client-manager][debug]: GetModelByName(Articles)
@@ -94,8 +94,10 @@ console.log(JSON.stringify(records, null, 2));
 ### Retrieving a record
 
 ```javascript
-const records = await client.RecordAsync('Articles', {id: '4bb3a7bb-962d-4183-9ca6-35d170c34f3b'});
-console.log(JSON.stringify(records, null, 2));
+const records = await client.RecordAsync('Articles', {
+  id: '4bb3a7bb-962d-4183-9ca6-35d170c34f3b'
+})
+console.log(JSON.stringify(records, null, 2))
 /* Output: 
 [squidex-client-manager][debug]: Record(Articles, [object Object])
 [squidex-client-manager][debug]: GetModelByName(Articles)
@@ -105,10 +107,11 @@ console.log(JSON.stringify(records, null, 2));
   }
 } */
 ```
+
 ### Creating a record
 
 ```javascript
-const title = 'My post';
+const title = 'My post'
 const body = `
 ## topic 1
 
@@ -117,8 +120,11 @@ imperdiet disputando, no cum oratio abhorreant. Agam accusata prodesset cu
 pri, qui iudico constituto constituam an. Ne mel liber libris expetendis, per
 eu imperdiet dignissim. Pro ridens fabulas evertitur ut.
 `
-const expected = { data: { title: { iv: title }, text: { iv: body } }, publish: true };
-const article = await client.CreateAsync('Articles', expected);
+const expected = {
+  data: { title: { iv: title }, text: { iv: body } },
+  publish: true
+}
+const article = await client.CreateAsync('Articles', expected)
 console.log(JSON.stringify(article, null, 2))
 /* Output:
 [squidex-client-manager][debug]: Create(Articles, [object Object])
@@ -147,8 +153,10 @@ console.log(JSON.stringify(article, null, 2))
 ### Deleting a record
 
 ```javascript
-const deleted = await client.DeleteAsync('Articles', { id: 'cdbcb9f7-f6f6-4a6a-81d9-0c6f9cf385f8' });
-console.log(JSON.stringify(deleted, null, 2));
+const deleted = await client.DeleteAsync('Articles', {
+  id: 'cdbcb9f7-f6f6-4a6a-81d9-0c6f9cf385f8'
+})
+console.log(JSON.stringify(deleted, null, 2))
 /* Output:
 [squidex-client-manager][debug]: Delete(Articles, [object Object])
 [squidex-client-manager][debug]: GetModelByName(Articles)
@@ -185,10 +193,10 @@ const update = await client.UpdateAsync('Articles', {
   id: '4bb3a7bb-962d-4183-9ca6-35d170c34f3b',
   data: {
     title: { iv: 'the title is updated' },
-    text: { iv: `the article text` },
-  },
-});
-console.log(JSON.stringify(update, null, 2));
+    text: { iv: `the article text` }
+  }
+})
+console.log(JSON.stringify(update, null, 2))
 /* Output:
 [squidex-client-manager][debug]: Update(Articles, [object Object])
 [squidex-client-manager][debug]: GetModelByName(Articles)
@@ -201,20 +209,23 @@ console.log(JSON.stringify(update, null, 2));
   }
 }
 */
-
 ```
 
 ### Create or update a record
 
 ```javascript
-const createOrUpdate = await client.CreateOrUpdateAsync('Articles', {
-  id: '4bb3a7bb-962d-4183-9ca6-35d170c34f3b',
-  data: {
-    title: { iv: 'title here is used as unique value for comparison' },
-    text: { iv: 'y' },
+const createOrUpdate = await client.CreateOrUpdateAsync(
+  'Articles',
+  {
+    id: '4bb3a7bb-962d-4183-9ca6-35d170c34f3b',
+    data: {
+      title: { iv: 'title here is used as unique value for comparison' },
+      text: { iv: 'y' }
+    }
   },
-}, 'title');
-console.log(JSON.stringify(createOrUpdate, null, 2));
+  'title'
+)
+console.log(JSON.stringify(createOrUpdate, null, 2))
 /* Output:
 [squidex-client-manager][debug]: CreateOrUpdate(Articles, [object Object], title)
 [squidex-client-manager][debug]: filter Articles where title eq title here is used as unique value for comparison
@@ -252,9 +263,9 @@ Conventions][oc], please reach out by creating a [issue][i].
 If you only want to use `eq` then the following example should suffice
 
 ```javascript
-const input = { data: { title: { iv: 'Hello Squidex' } }, publish: true };
-const filter = await client.FilterRecordsAsync('Articles', input, 'title');
-console.log(JSON.stringify(filter, null, 2));
+const input = { data: { title: { iv: 'Hello Squidex' } }, publish: true }
+const filter = await client.FilterRecordsAsync('Articles', input, 'title')
+console.log(JSON.stringify(filter, null, 2))
 /* Output:
 [squidex-client-manager][debug]: filter Articles where title eq Hello Squidex
 [squidex-client-manager][debug]: Records(Articles, [object Object])
@@ -285,8 +296,8 @@ console.log(JSON.stringify(filter, null, 2));
 #### Find open
 
 ```javascript
-const record = await client.FindOne('Articles', 'title', 'Hello Squidex');
-console.log(JSON.stringify(record, null, 2));
+const record = await client.FindOne('Articles', 'title', 'Hello Squidex')
+console.log(JSON.stringify(record, null, 2))
 /* Output:
 [squidex-client-manager][debug]: Records(Articles, [object Object])
 [squidex-client-manager][debug]: GetModelByName(Articles)
@@ -319,9 +330,8 @@ The project is developed and maintained by [Alexander Alemayhu][twitter] for [Fo
 ## Troubleshooting
 
 0. Make sure your client has enough permissions (recommended role for testing is `Developer`).
-0. Make sure the model name you are querying is the same in the Squidex schema.
-0. Check your token is valid.
-
+1. Make sure the model name you are querying is the same in the Squidex schema.
+2. Check your token is valid.
 
 [a]: https://docs.squidex.io/guides/02-api
 [0]: https://squidex.io/

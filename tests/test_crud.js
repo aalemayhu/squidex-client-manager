@@ -25,7 +25,7 @@ async function simpleWriteCheck(t, modelName, payload) {
   const record = await client.CreateAsync(modelName, payload);
   t.truthy(record.id);
 
-  const records = await client.RecordsAsync(modelName);
+  const records = await client.RecordsAsync(modelName, { top: 0 });
   t.true(records.items.length > 0);
 
   await client.DeleteAsync(modelName, { id: record.id });
