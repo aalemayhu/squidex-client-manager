@@ -56,8 +56,8 @@ try {
 
 ### Retrieving records
 
-By default only `20` records are returned, the max is `200` but setting it to
-`0` will return all of them.
+By default only `20` records are returned, the max is `200` but you can combine
+it with `skip` to paginate between the results.
 
 ```javascript
 const records = await client.RecordsAsync('Articles', { top: 0 })
