@@ -20,6 +20,20 @@ following links:
 - [Documentation](https://docs.squidex.io)
 - [Hosted][s]
 
+## Installation
+
+### NPM
+
+```
+npm install squidex-client-manager
+```
+
+### Yarn
+
+```
+yarn add squidex-client-manager
+```
+
 ## Usage
 
 You need to setup the client before using it. For getting values for the client see 
