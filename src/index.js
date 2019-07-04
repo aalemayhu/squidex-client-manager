@@ -1,5 +1,8 @@
+const fs = require('fs');
+
 // The API is generated from the swagger-js module
 const Swagger = require('swagger-client');
+const FormData = require('form-data');
 
 const { SquidexTokenManager } = require('./token_manager');
 const { buildFilterString } = require('./filter');
@@ -56,7 +59,6 @@ class SquidexClientManager {
     if (this.squidexApi && this.client && this.tokenManager.isTokenValid()) {
       return;
     }
-
 
     const token = await this.tokenManager.getToken();
     // This client is for our project API
@@ -251,10 +253,19 @@ class SquidexClientManager {
   }
 
   async CreateAssetAsync(assetUrl) {
-    this.ensureValidClient();
-    // This is a work in progress
-    console.log(this.squidexApi.apis.Assets.Assets_PostAsset);
-    console.log(assetUrl);
+    await this.ensureValidClient();
+    // This is a work in progressgg
+    try {
+      const form = new FormData();
+      form.append('file', fs.createReadStream(assetUrl));
+      form.append('mimeType', 'jpeg');
+
+      const res = await this.squidexApi.apis.Assets.Assets_PostAsset({ app: this.appName, file: form });
+      return res;
+    } catch (error) {
+      Log.Error(error);
+      return null;
+    }
   }
 }
 module.exports.SquidexClientManager = SquidexClientManager;

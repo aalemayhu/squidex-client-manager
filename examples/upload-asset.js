@@ -12,7 +12,6 @@ const main = async () => {
 
   const client = new SquidexClientManager(url, appName, clientId, clientSecret);
   const localImageFile = path.resolve(__dirname, '../GitHub/power-by.png');
-  console.log(localImageFile);
   const upload = await client.CreateAssetAsync(localImageFile);
   console.log(JSON.stringify(upload, null, 2));
 };
