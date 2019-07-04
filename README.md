@@ -48,10 +48,10 @@ below assume you are running in an `async` function.
 const { SquidexClientManager } = require('squidex-client-manager');
 
 const client = new SquidexClientManager(
-  url: 'https://cloud.squidex.io',
-  appName: 'my-blog-squidex',
-  clientId: 'my-blog-squidex:developer',
-  clientSecret: 'my-secret',
+  'https://cloud.squidex.io',
+  'my-blog-squidex',
+  'my-blog-squidex:developer',
+  'my-secret',
 );
 ```
 
