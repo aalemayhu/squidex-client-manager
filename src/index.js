@@ -122,7 +122,6 @@ class SquidexClientManager {
    * Get a record content
    * @param {the API endpoint} modelName
    * @param {object containing the id property} payload
-   * TODO: delete this function
    */
   async RecordAsync(modelName, payload) {
     await this.ensureValidClient();
