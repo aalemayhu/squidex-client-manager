@@ -1,10 +1,5 @@
-const fs = require('fs');
-
 // The API is generated from the swagger-js module
 const Swagger = require('swagger-client');
-const FormData = require('form-data');
-const mime = require('mime-types');
-const axios = require('axios');
 
 const { SquidexTokenManager } = require('./token_manager');
 const { buildFilterString } = require('./filter');
@@ -23,43 +18,60 @@ function ensureValidResponse(response, status) {
 }
 
 /**
+ * Check that a value is set or throw error
+ * @param {the argument to be checked} argument
+ */
+function ensureValidArg(argument) {
+  if (argument === undefined) {
+    const name = Object.keys({ argument })[0];
+    return new Error(`expected argument ${name} is undefined`);
+  }
+  return null;
+}
+
+
+/**
  * SquidexClientManager is Javascript wrapper around the Squidex API provided via Swagger.
  * The implementation relies on the swagger-js generation of the API.
  *
  */
 class SquidexClientManager {
-  constructor(url, id, secret, cacheFile) {
-    this.tokenManager = new SquidexTokenManager(url, id, secret, cacheFile);
-
-    if (!url) {
-      throw new Error('Missing client url');
-    }
-    if (!id) {
-      throw new Error('Missing client id');
-    }
-    if (!secret) {
-      throw new Error('Missing client secret');
-    }
+  constructor(url, appName, id, secret) {
+    ensureValidArg(url); ensureValidArg(id); ensureValidArg(secret);
+    this.connectUrl = `${url}/identity-server/connect/token`;
+    this.projectSpecUrl = `${url}/api/content/${appName}/swagger/v1/swagger.json`;
+    this.squidexSpecUrl = `${url}/api/swagger/v1/swagger.json`;
+    this.appName = appName;
+    this.tokenManager = new SquidexTokenManager(
+      this.connectUrl, id, secret, process.env.DEBUG_TOKEN_CACHE,
+    );
   }
 
   /**
-   * Connect to the Swagger API
+   * Handle token checking and renew if invalid. This function should be called before any
+   * API calls and is handled transparently by the squidex client manager instance.
    */
-  async ConfigureAsync(specUrl) {
-    this.specUrl = specUrl;
-    await this.ensureValidClient();
-  }
-
   async ensureValidClient() {
     // Make sure we have a valid token before proceeding
-    if (this.client && this.tokenManager.isTokenValid()) {
+    if (this.squidexApi && this.client && this.tokenManager.isTokenValid()) {
       return;
     }
 
-    const token = await this.tokenManager.getToken();
 
+    const token = await this.tokenManager.getToken();
+    // This client is for our project API
     this.client = await new Swagger({
-      url: this.specUrl,
+      url: this.projectSpecUrl,
+      requestInterceptor: (req) => {
+        if (req.body && !req.headers['Content-Type']) {
+          req.headers['Content-Type'] = 'application/json';
+        }
+        req.headers.Authorization = `Bearer ${token}`;
+      },
+    });
+    // The squidexApi client gives us access to the general API's like asset
+    this.squidexApi = await new Swagger({
+      url: this.squidexSpecUrl,
       requestInterceptor: (req) => {
         if (req.body && !req.headers['Content-Type']) {
           req.headers['Content-Type'] = 'application/json';
@@ -239,39 +251,11 @@ class SquidexClientManager {
     return create;
   }
 
-  async CreateAssetAsync(url, assetUrl) {
+  async CreateAssetAsync(assetUrl) {
     this.ensureValidClient();
-    const token = this.tokenManager.getToken();
-
-    Log.Debug(`CreateAssetAsync(${url}, ${assetUrl})`);
-
-
-    const compos = assetUrl.split('/');
-    const filename = compos[compos.length - 1];
-    const form = new FormData();
-
-    // public void Add (HttpContent content, string name, string fileName);
-    // TODO: handle assetUrl is https url
-    form.append('content', fs.createReadStream(assetUrl));
-    form.append('name', filename);
-    form.append('filename', filename);
-
-    try {
-      const response = await axios({
-        method: 'post',
-        url,
-        data: form,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // eslint-disable-next-line no-underscore-dangle
-          'content-type': `${mime.contentType(filename)} boundary=${form._boundary}`,
-        },
-      });
-      return response;
-    } catch (error) {
-      Log.Error(error);
-      return null;
-    }
+    // This is a work in progress
+    console.log(this.squidexApi.apis.Assets.Assets_PostAsset);
+    console.log(assetUrl);
   }
 }
 module.exports.SquidexClientManager = SquidexClientManager;

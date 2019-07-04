@@ -6,15 +6,15 @@ const querystring = require('querystring');
 const { Log } = require('./logger');
 
 class SquidexTokenManager {
-  constructor(url, id, secret, cacheFile) {
+  constructor(url, id, secret, debugTokenFile) {
     this.connectUrl = url;
     this.client_id = id;
     this.client_secret = secret;
-    this.cacheFile = cacheFile;
+    this.debugTokenFile = debugTokenFile;
 
     // Use cache if available
-    if (cacheFile && fs.existsSync(cacheFile)) {
-      this.accessToken = JSON.parse(fs.readFileSync(cacheFile));
+    if (debugTokenFile && fs.existsSync(debugTokenFile)) {
+      this.accessToken = JSON.parse(fs.readFileSync(debugTokenFile));
     }
   }
 
@@ -61,9 +61,9 @@ class SquidexTokenManager {
     this.accessToken = accessToken.data;
     this.accessToken.createdAt = new Date();
 
-    if (this.cacheFile) {
-      fs.writeFileSync(this.cacheFile, JSON.stringify(this.accessToken, null, 2));
-      Log.Debug(`token cached at ${this.cacheFile}`);
+    if (this.debugTokenFile) {
+      fs.writeFileSync(this.debugTokenFile, JSON.stringify(this.accessToken, null, 2));
+      Log.Debug(`token cached at ${this.debugTokenFile}`);
     }
   }
 

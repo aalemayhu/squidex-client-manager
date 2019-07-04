@@ -1,26 +1,19 @@
-const { SquidexClientManager } = require('../src/index.js');
 const path = require('path');
+
+// XXX: This does not work yet, please don't try it
+const { SquidexClientManager } = require('../src/index.js');
 require('dotenv').config();
 
 const main = async () => {
-  const specUrl = process.env.SQUIDEX_SPEC_URL;
-  const url = process.env.SQUIDEX_CONNECT_URL;
-  const clientId = process.env.SQUIDEX_CLIENT_ID;
   const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
-  const assetUrl = process.env.SQUIDEX_ASSETS_URL;
-  const cacheFile = '/tmp/squidex-my-app-token.json';
+  const clientId = process.env.SQUIDEX_CLIENT_ID;
+  const url = process.env.SQUIDEX_CONNECT_URL;
+  const appName = process.env.APP_NAME;
 
-  const client = new SquidexClientManager(url, clientId, clientSecret, cacheFile);
-  try {
-    await client.ConfigureAsync(specUrl);
-  } catch (error) {
-    console.log('Failed to setup the CMS. Please check token is setup!');
-    console.error(error);
-    process.exit(1);
-  }
+  const client = new SquidexClientManager(url, appName, clientId, clientSecret);
   const localImageFile = path.resolve(__dirname, '../GitHub/power-by.png');
   console.log(localImageFile);
-  const upload = await client.CreateAssetAsync(assetUrl, localImageFile);
+  const upload = await client.CreateAssetAsync(localImageFile);
   console.log(JSON.stringify(upload, null, 2));
 };
 

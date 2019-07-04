@@ -22,11 +22,8 @@ following links:
 
 ## Usage
 
-You need to setup the client before using it. The minimal requirement is the
-URL for the OpenAPI specification and valid client credentials.
-
-1. To find the API spec URL visit `https://cloud.squidex.io/api/content/<my-app>/docs`
-2. For getting values for the client see `https://cloud.squidex.io/app/<my-app>/settings/clients`
+You need to setup the client before using it. For getting values for the client see 
+`https://cloud.squidex.io/app/<my-app>/settings/clients`
 
 When you have those values you can setup the client. Note that all examples
 below assume you are running in an `async` function.
@@ -37,21 +34,11 @@ below assume you are running in an `async` function.
 const { SquidexClientManager } = require('squidex-client-manager');
 
 const client = new SquidexClientManager(
-  url: 'https://cloud.squidex.io/identity-server/connect/token',
+  url: 'https://cloud.squidex.io',
+  appName: 'my-blog-squidex',
   clientId: 'my-blog-squidex:developer',
   clientSecret: 'my-secret',
-  // cacheFile is not required but useful for debugging
-  cacheFile: '/tmp/optional-field-for-debug-cache-file.json'
 );
-
-try {
-  let specUrl = 'https://cloud.squidex.io/api/content/<my-app>/swagger/v1/swagger.json'
-  await client.ConfigureAsync(specUrl);
-} catch (error) {
-  console.log('Failed to setup the CMS. Please check token is setup!');
-  console.error(error);
-}
-
 ```
 
 ### Retrieving records

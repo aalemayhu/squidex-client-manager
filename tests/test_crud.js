@@ -8,13 +8,13 @@ import { SquidexClientManager } from '../src/index';
 
 dotenv.config();
 
-const specUrl = process.env.SQUIDEX_SPEC_URL;
-const url = process.env.SQUIDEX_CONNECT_URL;
-const clientId = process.env.SQUIDEX_CLIENT_ID;
+// TODO: update the CI
 const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
-const cacheFile = '/tmp/squidex-my-app-token.json';
+const clientId = process.env.SQUIDEX_CLIENT_ID;
+const url = process.env.SQUIDEX_CONNECT_URL;
+const appName = process.env.APP_NAME;
 
-const client = new SquidexClientManager(url, clientId, clientSecret, cacheFile);
+const client = new SquidexClientManager(url, appName, clientId, clientSecret);
 
 function uniqueString(prefix) {
   const dateStamp = new Date().toString();
@@ -32,7 +32,7 @@ async function simpleWriteCheck(t, modelName, payload) {
 }
 
 test.before('Get Models', async (t) => {
-  await client.ConfigureAsync(specUrl);
+  await client.ensureValidClient();
   const models = client.Models();
   t.true(Object.keys(models).length > 0);
 });
