@@ -8,7 +8,6 @@ import { SquidexClientManager } from '../src/index';
 
 dotenv.config();
 
-// TODO: update the CI
 const clientSecret = process.env.SQUIDEX_CLIENT_SECRET;
 const clientId = process.env.SQUIDEX_CLIENT_ID;
 const url = process.env.SQUIDEX_CONNECT_URL;

@@ -260,7 +260,8 @@ class SquidexClientManager {
       form.append('file', fs.createReadStream(assetUrl));
       form.append('mimeType', 'jpeg');
 
-      const res = await this.squidexApi.apis.Assets.Assets_PostAsset({ app: this.appName, file: form });
+      const res = await this.squidexApi.apis.Assets
+        .Assets_PostAsset({ app: this.appName, file: form });
       return res;
     } catch (error) {
       Log.Error(error);
