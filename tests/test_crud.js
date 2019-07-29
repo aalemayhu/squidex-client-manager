@@ -56,18 +56,18 @@ test.serial('Articles', async (t) => {
       text: { iv: 'x' },
     },
   });
-  t.true(update.text.iv === 'x');
+  t.true(update.data.text.iv === 'x');
   t.truthy(article.id);
 
   // Check update works via create or update call
   const createOrUpdate = await client.CreateOrUpdateAsync('Articles', {
     id: article.id,
     data: {
-      title: { iv: update.title.iv },
+      title: { iv: update.data.title.iv },
       text: { iv: 'y' },
     },
   }, 'title');
-  t.true(createOrUpdate.text.iv === 'y');
+  t.true(createOrUpdate.data.text.iv === 'y');
 
   // Clean up
   const deleteOp = await client.DeleteAsync('Articles', { id: article.id });
