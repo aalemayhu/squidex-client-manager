@@ -62,7 +62,7 @@ const client = new SquidexClientManager(
 ### Retrieving records
 
 By default only `20` records are returned, the max is `200` but you can combine
-it with `skip` to paginate between the results.
+it with `skip` to paginate between the results or use `AllRecords` like below.
 
 ```javascript
 const records = await client.RecordsAsync('Articles', { top: 0 })
@@ -94,6 +94,10 @@ console.log(JSON.stringify(records, null, 2))
   ]
 }
 */
+
+const allRecords = await client.AllRecordsAsync('Articles');
+console.log(allRecords.length);
+500
 ```
 
 ### Retrieving a record

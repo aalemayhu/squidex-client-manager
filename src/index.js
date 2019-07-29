@@ -106,6 +106,32 @@ class SquidexClientManager {
   }
 
   /**
+   * Convenience function to retrieve all items for a model
+   * @param {the schema name} modelName
+   */
+  async AllRecordsAsync(modelName) {
+    await this.ensureValidClient();
+    Log.Debug(`AllRecords(${modelName})`);
+
+    const records = await this.RecordsAsync(modelName, { skip: 0 });
+    const all = records.items.slice();
+
+    if (records.total > 200) {
+      let top = records.total - all.length;
+      for (let i = all.length; i <= records.total; i += top) {
+        // eslint-disable-next-line no-await-in-loop
+        const s = await this.RecordsAsync(modelName, { skip: all.length, $top: top });
+        all.push(...s.items);
+        top = records.total - all.length;
+        if (records.total === all.length) {
+          break;
+        }
+      }
+    }
+    return all;
+  }
+
+  /**
    * Retrieve the items for the model
    * @param {the schema name} modelName
    * @param {the query options} opts

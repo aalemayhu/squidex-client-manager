@@ -10,6 +10,9 @@ const main = async () => {
   const client = new SquidexClientManager(url, appName, clientId, clientSecret);
   const records = await client.RecordsAsync('Articles', { top: 0 });
   console.log(JSON.stringify(records, null, 2));
+
+  const allRecords = await client.AllRecordsAsync('Articles');
+  console.log(allRecords.length);
 };
 
 main();
