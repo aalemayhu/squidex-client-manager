@@ -229,6 +229,8 @@ console.log(JSON.stringify(update, null, 2))
 
 ### Create or update a record
 
+Note that this function will override the other fields.
+
 ```javascript
 const createOrUpdate = await client.CreateOrUpdateAsync(
   'Articles',
