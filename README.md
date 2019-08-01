@@ -311,7 +311,7 @@ console.log(JSON.stringify(filter, null, 2))
 */
 ```
 
-#### Find open
+#### Find one
 
 ```javascript
 const record = await client.FindOne('Articles', 'title', 'Hello Squidex')
