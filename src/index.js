@@ -263,14 +263,8 @@ class SquidexClientManager {
     const self = this;
     if (record) {
       const update = await self.UpdateAsync(name, { id: record.id, data: payload.data });
-      const cacheEntry = { id: null, data: update };
       if (update && !update.id) {
         update.id = record.id;
-        cacheEntry.id = record.id;
-      } else if (update && update.id) {
-        cacheEntry.id = update.id;
-      } else {
-        return update;
       }
       return update;
     }
