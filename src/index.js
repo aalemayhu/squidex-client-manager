@@ -6,6 +6,7 @@ const FormData = require('form-data');
 
 const { SquidexTokenManager } = require('./token_manager');
 const { buildFilterString } = require('./filter');
+const { MergeRecords } = require('./merge');
 const { Log } = require('./logger');
 
 /**
@@ -262,7 +263,10 @@ class SquidexClientManager {
     const record = await this.FindOne(name, fieldName, uniqueValue);
     const self = this;
     if (record) {
-      const update = await self.UpdateAsync(name, { id: record.id, data: payload.data });
+      const update = await self.UpdateAsync(name, {
+        id: record.id,
+        data: MergeRecords(record.data, payload.data),
+      });
       if (update && !update.id) {
         update.id = record.id;
       }

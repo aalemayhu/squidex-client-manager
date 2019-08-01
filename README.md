@@ -197,6 +197,8 @@ console.log(JSON.stringify(deleted, null, 2))
 
 ### Updating a record
 
+Note that this function will override the other fields.
+
 ```javascript
 // Get our record data
 const record = await client.RecordAsync('Articles', {
@@ -229,7 +231,7 @@ console.log(JSON.stringify(update, null, 2))
 
 ### Create or update a record
 
-Note that this function will override the other fields.
+If a record already exists it willl be merged.
 
 ```javascript
 const createOrUpdate = await client.CreateOrUpdateAsync(
