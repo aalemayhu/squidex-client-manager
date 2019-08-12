@@ -240,9 +240,18 @@ class SquidexClientManager {
    */
   async FilterRecordsAsync(name, payload, fieldName) {
     await this.ensureValidClient();
-    const uniqueValue = payload.data[`${fieldName}`].iv;
+    let uniqueValue = null;
+
+    const field = payload.data[`${fieldName}`];
+    if (field && field.iv) {
+      uniqueValue = field.iv;
+    } else if (field && !field.iv) {
+      throw new Error(`Found field but .iv is ${field.iv}`);
+    } else {
+      Log.Debug('assuming unique value is null');
+    }
+
     const filter = buildFilterString(`data/${fieldName}/iv`, 'eq', uniqueValue);
-    Log.Debug(`filter ${filter}`);
     const records = await this.RecordsAsync(name, {
       $filter: filter,
       top: 0,

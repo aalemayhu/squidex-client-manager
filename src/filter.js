@@ -17,6 +17,8 @@ function buildFilterString(predicate, operation, values) {
   let check = `'${values}'`;
   if (typeof values === 'number') {
     check = values;
+  } else if (values === null) {
+    check = null;
   }
 
   return `${predicate} ${operation} ${check}`;
