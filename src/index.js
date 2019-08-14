@@ -40,6 +40,8 @@ function ensureValidArg(argument) {
  *
  */
 class SquidexClientManager {
+  // TODO: consider changing constructor to take a options object
+  // TODO: Should we expose variables like allowDrafts or pass .headers?
   constructor(url, appName, id, secret) {
     ensureValidArg(url); ensureValidArg(id); ensureValidArg(secret);
     this.connectUrl = `${url}/identity-server/connect/token`;
