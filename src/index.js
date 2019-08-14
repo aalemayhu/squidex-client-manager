@@ -9,6 +9,8 @@ const { buildFilterString } = require('./filter');
 const { MergeRecords } = require('./merge');
 const { Log } = require('./logger');
 
+const { compatState, compatPayload } = require('./compat');
+
 /**
  * Check response status is correct
  * @param {the HTTP response} response
@@ -163,7 +165,7 @@ class SquidexClientManager {
     await this.ensureValidClient();
     Log.Debug(`Record(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
-    const response = await model[`Get${modelName}Content`](payload);
+    const response = await model[`Get${modelName}Content`](compatState(payload), compatPayload(payload));
     /**
      * 200 OK
      * The standard response for successful HTTP requests.
@@ -181,7 +183,8 @@ class SquidexClientManager {
     await this.ensureValidClient();
     Log.Debug(`Create(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
-    const response = await model[`Create${modelName}Content`](payload);
+
+    const response = await model[`Create${modelName}Content`](compatState(payload), compatPayload(payload));
     // 201 means Created:
     // The request has been fulfilled and a new resource has been created.
     ensureValidResponse(response, 201);
@@ -197,7 +200,7 @@ class SquidexClientManager {
     await this.ensureValidClient();
     Log.Debug(`Delete(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
-    const response = await model[`Delete${modelName}Content`](payload);
+    const response = await model[`Delete${modelName}Content`]({ id: payload.id }, compatPayload(payload));
     // 204 No content
     // The server accepted the request but is not returning any content.
     // This is often used as a response to a DELETE request.
@@ -214,7 +217,7 @@ class SquidexClientManager {
     await this.ensureValidClient();
     Log.Debug(`Update(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
-    const response = await model[`Update${modelName}Content`](payload);
+    const response = await model[`Update${modelName}Content`]({ id: payload.id }, compatPayload(payload));
     /**
      * 200 OK
      * The standard response for successful HTTP requests.
