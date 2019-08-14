@@ -1,6 +1,6 @@
 {
   "name": "squidex-client-manager",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "a client for interacting with the Squidex API",
   "keywords": [
     "squidex",
