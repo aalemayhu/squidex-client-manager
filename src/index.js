@@ -49,6 +49,7 @@ class SquidexClientManager {
     this.tokenManager = new SquidexTokenManager(
       this.connectUrl, id, secret, process.env.DEBUG_TOKEN_CACHE,
     );
+    this.options = { allowDrafts: true };
   }
 
   /**
@@ -62,6 +63,7 @@ class SquidexClientManager {
     }
 
     const token = await this.tokenManager.getToken();
+    const self = this;
     // This client is for our project API
     this.client = await new Swagger({
       url: this.projectSpecUrl,
@@ -70,6 +72,9 @@ class SquidexClientManager {
           req.headers['Content-Type'] = 'application/json';
         }
         req.headers.Authorization = `Bearer ${token}`;
+        if (self.options.allowDrafts) {
+          req.headers['X-Unpublished'] = 'DRAFT';
+        }
       },
     });
     // The squidexApi client gives us access to the general API's like asset
