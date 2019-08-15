@@ -352,6 +352,7 @@ The project is developed and maintained by [Alexander Alemayhu][twitter] for [Fo
 0. Make sure your client has enough permissions (recommended role for testing is `Developer`).
 1. Make sure the model name you are querying is the same in the Squidex schema.
 2. Check your token is valid.
+3. If hosted, make sure you are running a [recent release][rr] of Squidex (to check version visit `https://<my-server-url>/api/info`).
 
 [a]: https://docs.squidex.io/guides/02-api
 [0]: https://squidex.io/
@@ -360,3 +361,4 @@ The project is developed and maintained by [Alexander Alemayhu][twitter] for [Fo
 [i]: https://github.com/scanf/squidex-client-manager/issues/new
 [s]: https://squidex.io
 [f]: https://fortress.no/
+[rr]: https://github.com/Squidex/squidex/releases
