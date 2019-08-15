@@ -354,9 +354,11 @@ some reason you experience issues creating content via the API and are
 self-hosting.  Make sure you are running a [recent release][rr] of Squidex.
 To check your version visit check version visit `https://<my-server-url>/api/info`
 
-0. Check the client has enough permissions (recommended role for testing is `Developer`).
-1. Check the model name you are querying exists in the Squidex schema.
-2. Check your token is valid.
+### Misc things to check
+
+- Check the client has enough permissions (recommended role for testing is `Developer`).
+- Check the model name you are querying exists in the Squidex schema.
+- Check your token is valid.
 
 [a]: https://docs.squidex.io/guides/02-api
 [0]: https://squidex.io/
