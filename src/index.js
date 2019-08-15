@@ -3,6 +3,7 @@ const fs = require('fs');
 // The API is generated from the swagger-js module
 const Swagger = require('swagger-client');
 const FormData = require('form-data');
+const MimeType = require('mime-types');
 
 const { SquidexTokenManager } = require('./token_manager');
 const { buildFilterString } = require('./filter');
@@ -85,11 +86,14 @@ class SquidexClientManager {
     this.squidexApi = await new Swagger({
       url: this.squidexSpecUrl,
       requestInterceptor: (req) => {
-        if (req.body && !req.headers['Content-Type']) {
+        // eslint-disable-next-line no-underscore-dangle
+        if (req.body && req.body._currentStream !== undefined) {
+          // If a stream is detected, use multipart/form-data
+          req.headers['Content-Type'] = 'multipart/form-data';
+        } else if (req.body && !req.headers['Content-Type']) {
           req.headers['Content-Type'] = 'application/json';
         }
         req.headers.Authorization = `Bearer ${token}`;
-        Log.Debug(JSON.stringify(req, null, 2));
       },
     });
   }
@@ -296,13 +300,23 @@ class SquidexClientManager {
     return create;
   }
 
+  /**
+   * Create asset from local file
+   * @param {path to the file} assetUrl
+   */
   async CreateAssetAsync(assetUrl) {
     await this.ensureValidClient();
-    // This is a work in progressgg
+    const mimeType = MimeType.lookup(assetUrl);
+    // TODO: add support for remote URLS
+
+    if (!mimeType) {
+      throw new Error(`Invalid content type when looking up mime type for ${assetUrl}`);
+    }
+
     try {
       const form = new FormData();
       form.append('file', fs.createReadStream(assetUrl));
-      form.append('mimeType', 'jpeg');
+      form.append('mimeType', mimeType);
 
       const res = await this.squidexApi.apis.Assets
         .Assets_PostAsset({ app: this.appName }, { requestBody: form });
