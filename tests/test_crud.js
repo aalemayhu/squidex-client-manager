@@ -1,6 +1,8 @@
 // NB: Please note this test script is run serially (.serial)
 // This means they are supposed to be run in order, due to the
 // Get Models setting up context. It's setup this way for flexibility.
+import path from 'path';
+
 import test from 'ava';
 import dotenv from 'dotenv';
 
@@ -59,12 +61,16 @@ test.serial('Articles', async (t) => {
   t.true(update.data.text.iv === 'x');
   t.truthy(article.id);
 
+  // Create a image upload
+  const upload = await client.CreateAssetAsync(path.resolve(__dirname, '../GitHub/power-by.png'));
+
   // Check update works via create or update call
   const createOrUpdate = await client.CreateOrUpdateAsync('Articles', {
     id: article.id,
     data: {
       title: { iv: update.data.title.iv },
       text: { iv: 'y' },
+      image: { iv: [upload.body.id] },
     },
   }, 'title');
   t.true(createOrUpdate.data.text.iv === 'y');
