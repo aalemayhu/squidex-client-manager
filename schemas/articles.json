@@ -1,0 +1,250 @@
+{
+    "fields": [
+        {
+            "name": "title",
+            "properties": {
+                "editor": "Input",
+                "fieldType": "String"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/1",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/1/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/1/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/1/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/1",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        },
+        {
+            "name": "text",
+            "properties": {
+                "editor": "Markdown",
+                "fieldType": "String"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/2",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/2/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/2/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/2/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/2",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        },
+        {
+            "name": "metaTitle",
+            "properties": {
+                "editor": "Input",
+                "fieldType": "String"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/3",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/3/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/3/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/3/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/3",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        },
+        {
+            "name": "metaDescription",
+            "properties": {
+                "editor": "Input",
+                "fieldType": "String"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/4",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/4/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/4/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/4/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/4",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        },
+        {
+            "name": "uiseperator",
+            "properties": {
+                "editor": "Separator",
+                "fieldType": "UI"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/5",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/5/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/5/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/5/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/5",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        },
+        {
+            "name": "location",
+            "properties": {
+                "editor": "Map",
+                "fieldType": "Geolocation"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/6",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/6/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/6/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/6/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/6",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        },
+        {
+            "name": "image",
+            "properties": {
+                "editor": "Default",
+                "fieldType": "Assets"
+            },
+            "_links": {
+                "update": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/7",
+                    "method": "PUT"
+                },
+                "hide": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/7/hide",
+                    "method": "PUT"
+                },
+                "disable": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/7/disable",
+                    "method": "PUT"
+                },
+                "lock": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/7/lock",
+                    "method": "PUT"
+                },
+                "delete": {
+                    "href": "/api/apps/my-blog-squidex/schemas/articles/fields/7",
+                    "method": "DELETE"
+                }
+            },
+            "canDelete": true,
+            "canDisable": true,
+            "canHide": true,
+            "canLock": true,
+            "canUpdate": true,
+            "partitioning": "invariant"
+        }
+    ],
+    "properties": {}
+}
