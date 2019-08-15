@@ -342,6 +342,22 @@ console.log(JSON.stringify(record, null, 2))
 */
 ```
 
+#### Creating assets
+
+If you need to upload images or PDF's you can use `CreateAssetAsync`. The only restriction currently
+set is that the file must exist locally and be accessible. Also the mime type should be detectable.
+
+```javascript
+// The path to the file locally
+const filename = '../GitHub/power-by.png';
+const localImageFile = path.resolve(__dirname, filename);
+const upload = await client.CreateAssetAsync(localImageFile);
+console.log(upload.statusText, `${upload.url}/${upload.body.id}`);
+/* Output:
+Created https://cloud.squidex.io/api/assets/826d1176-d7c3-41cd-b166-13249fdcc225?version=0
+*/
+```
+
 ## Disclaimer
 
 This project is not affiliated with [Squidex][0] and is an unofficial client.
