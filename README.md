@@ -349,10 +349,14 @@ The project is developed and maintained by [Alexander Alemayhu][twitter] for [Fo
 
 ## Troubleshooting
 
-0. Make sure your client has enough permissions (recommended role for testing is `Developer`).
-1. Make sure the model name you are querying is the same in the Squidex schema.
+This repository is intentionally testing against [cloud.squidex.io][c]. If for
+some reason you experience issues creating content via the API and are
+self-hosting.  Make sure you are running a [recent release][rr] of Squidex.
+To check your version visit check version visit `https://<my-server-url>/api/info`
+
+0. Check the client has enough permissions (recommended role for testing is `Developer`).
+1. Check the model name you are querying exists in the Squidex schema.
 2. Check your token is valid.
-3. If hosted, make sure you are running a [recent release][rr] of Squidex (to check version visit `https://<my-server-url>/api/info`).
 
 [a]: https://docs.squidex.io/guides/02-api
 [0]: https://squidex.io/
@@ -362,3 +366,4 @@ The project is developed and maintained by [Alexander Alemayhu][twitter] for [Fo
 [s]: https://squidex.io
 [f]: https://fortress.no/
 [rr]: https://github.com/Squidex/squidex/releases
+[c]: https://cloud.squidex.io
