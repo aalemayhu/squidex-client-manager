@@ -87,6 +87,7 @@ class SquidexClientManager {
           req.headers['Content-Type'] = 'application/json';
         }
         req.headers.Authorization = `Bearer ${token}`;
+        Log.Debug(JSON.stringify(req, null, 2));
       },
     });
   }
@@ -301,7 +302,7 @@ class SquidexClientManager {
       form.append('mimeType', 'jpeg');
 
       const res = await this.squidexApi.apis.Assets
-        .Assets_PostAsset({ app: this.appName, file: form });
+        .Assets_PostAsset({ app: this.appName }, { requestBody: form });
       return res;
     } catch (error) {
       Log.Error(error);
