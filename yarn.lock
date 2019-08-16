@@ -696,6 +696,11 @@ buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
+buffer-type@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/buffer-type/-/buffer-type-1.0.0.tgz#0ed6f61f9ca8b4f5d55c24a9d835228176d7602b"
+  integrity sha512-N6bvq1lldG40grSAsoWnmi/SfxuwUwS2lfEqsjMXboeGdb88CuIKHQN1Z72l05CUiwwAaHWXF0oTYLdpWugUIA==
+
 buffer@^5.1.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.2.1.tgz#dd57fa0f109ac59c602479044dca7b8b3d0b71d6"
