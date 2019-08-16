@@ -2,11 +2,10 @@ const fs = require('fs');
 
 // The API is generated from the swagger-js module
 const Swagger = require('swagger-client');
-const BufferType = require('buffer-type');
 const FormData = require('form-data');
-const MimeType = require('mime-types');
 
 const { SquidexTokenManager } = require('./token_manager');
+const { findMimeType } = require('./find_mime_type');
 const { buildFilterString } = require('./filter');
 const { MergeRecords } = require('./merge');
 const { Log } = require('./logger');
@@ -307,15 +306,8 @@ class SquidexClientManager {
    */
   async CreateAssetAsync(assetUrl) {
     await this.ensureValidClient();
-    let mimeType = MimeType.lookup(assetUrl);
+    const mimeType = findMimeType(assetUrl);
     // TODO: add support for remote URLS
-
-    // Try using a buffer if mime type can't be recognized from the local file
-    if (!mimeType) {
-      const info = BufferType(fs.readFileSync(assetUrl));
-      mimeType = info.type;
-    }
-
     if (!mimeType) {
       throw new Error(`Invalid content type when looking up mime type for ${assetUrl}`);
     }
