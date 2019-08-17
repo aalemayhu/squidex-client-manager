@@ -131,7 +131,7 @@ class SquidexClientManager {
 
     if (records.total > 200) {
       let top = records.total - all.length;
-      for (let i = all.length; i <= records.total; i += top) {
+      for (let i = all.length; all.length < records.total; i += top) {
         // eslint-disable-next-line no-await-in-loop
         const s = await this.RecordsAsync(modelName, { skip: all.length, $top: top });
         all.push(...s.items);
