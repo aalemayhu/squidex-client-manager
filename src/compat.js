@@ -1,12 +1,15 @@
 /**
  * Functions for handling breaking changes
  */
-
 function compatState(payload) {
+  const data = { publish: true };
   if (typeof (payload.publish) !== 'undefined') {
-    return { publish: payload.publish };
+    data.publish = payload.publish;
   }
-  return { publish: true };
+  if (typeof (payload.id) !== 'undefined') {
+    data.id = payload.id;
+  }
+  return data;
 }
 
 function compatPayload(payload) {
