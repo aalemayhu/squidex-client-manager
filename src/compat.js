@@ -12,14 +12,15 @@ function compatState(payload) {
 function compatPayload(payload) {
   const mangle = payload;
   delete mangle.publish;
-  let data = mangle.data;
+  let { data } = mangle;
 
   // Handle payload is not inside of data
   if (!data) {
     data = {};
     const keys = Object.keys(mangle);
+    // eslint-disable-next-line no-restricted-syntax
     for (const key of keys) {
-      data[`${key}`] = mangle[`${key}`]
+      data[`${key}`] = mangle[`${key}`];
     }
   }
 

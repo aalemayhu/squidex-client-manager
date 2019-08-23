@@ -17,7 +17,13 @@ const main = async () => {
   pri, qui iudico constituto constituam an. Ne mel liber libris expetendis, per
   eu imperdiet dignissim. Pro ridens fabulas evertitur ut.
   `;
-  const expected = { data: { title: { iv: title }, text: { iv: body } }, publish: true };
+  const expected = {
+    data: {
+      title: { iv: title },
+      text: { iv: body },
+    },
+    publish: true,
+  };
   const article = await client.CreateAsync('Articles', expected);
   console.log(JSON.stringify(article, null, 2));
 };
