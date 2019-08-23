@@ -6,7 +6,7 @@ function compatState(payload) {
   if (typeof (payload.publish) !== 'undefined') {
     return { publish: payload.publish };
   }
-  return { publis: true };
+  return { publish: true };
 }
 
 function compatPayload(payload) {
