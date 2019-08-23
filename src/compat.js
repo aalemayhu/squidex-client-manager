@@ -12,7 +12,18 @@ function compatState(payload) {
 function compatPayload(payload) {
   const mangle = payload;
   delete mangle.publish;
-  return { requestBody: mangle.data };
+  let data = mangle.data;
+
+  // Handle payload is not inside of data
+  if (!data) {
+    data = {};
+    const keys = Object.keys(mangle);
+    for (const key of keys) {
+      data[`${key}`] = mangle[`${key}`]
+    }
+  }
+
+  return { requestBody: data };
 }
 
 module.exports.compatState = compatState;
