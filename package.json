@@ -1,6 +1,6 @@
 {
   "name": "squidex-client-manager",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "a client for interacting with the Squidex API",
   "bugs": "https://github.com/scanf/squidex-client-manager/issues",
   "keywords": [
