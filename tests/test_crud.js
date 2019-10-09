@@ -90,6 +90,16 @@ test.serial('Tag', async (t) => {
 });
 
 test.serial('check drafts', async (t) => {
-  const filter = await client.FilterRecordsAsync('Articles', null, null)
+  let filter = await client.FilterRecordsAsync('Articles', null, null)
   t.true(filter.length > 0);
+  const drafts = filter.filter(s => s.status === 'Draft');
+  console.log(drafts);
+  console.log(JSON.stringify(drafts, null, 2));
+
+  const record = drafts[0];
+  if (record.status === 'Draft') {
+    await client.ChangeStatus('Articles', drafts[0].id, 'Published')
+  } else {
+    await client.ChangeStatus('Articles', drafts[0].id, 'Draft')
+  }
 })

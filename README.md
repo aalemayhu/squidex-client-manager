@@ -360,6 +360,10 @@ Created https://cloud.squidex.io/api/assets/826d1176-d7c3-41cd-b166-13249fdcc225
 */
 ```
 
+#### Changing Status
+
+TODO: add example
+
 ## Disclaimer
 
 This project is not affiliated with [Squidex][0] and is an unofficial client.

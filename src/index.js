@@ -337,5 +337,14 @@ class SquidexClientManager {
       return null;
     }
   }
+
+  async ChangeStatus(name, id, status) {
+    await this.ensureValidClient();
+    Log.Debug(`ChangeStatus(${name}, ${id}, ${status})`);
+    const model = this.GetModelByName(name);
+
+    const payload = await model[`Change${name}ContentStatus`]({id}, {requestBody: {status}});
+    return payload;
+  }
 }
 module.exports.SquidexClientManager = SquidexClientManager;
