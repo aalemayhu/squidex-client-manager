@@ -222,7 +222,7 @@ class SquidexClientManager {
     await this.ensureValidClient();
     Log.Debug(`Update(${modelName}, ${payload})`);
     const model = this.GetModelByName(modelName);
-    const response = await model[`Update${modelName}Content`]({ id: payload.id }, compatPayload(payload));
+    const response = await model[`Update${modelName}Content`](compatState(payload), compatPayload(payload));
     /**
      * 200 OK
      * The standard response for successful HTTP requests.
