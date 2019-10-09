@@ -47,7 +47,7 @@ class SquidexClientManager {
   // TODO: Should we expose variables like allowDrafts or pass .headers?
   constructor(url, appName, id, secret) {
     ensureValidArg(url); ensureValidArg(id); ensureValidArg(secret);
-    this.connectUrl = `${url}/identity-server/connect/token`;
+    this.connectUrl = url.includes('identity-server/connect/token') ? url : `${url}/identity-server/connect/token`;
     this.projectSpecUrl = `${url}/api/content/${appName}/swagger/v1/swagger.json`;
     this.squidexSpecUrl = `${url}/api/swagger/v1/swagger.json`;
     this.appName = appName;
