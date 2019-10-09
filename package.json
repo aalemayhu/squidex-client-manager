@@ -10,6 +10,7 @@
     "squidex-client-manager",
     "client"
   ],
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "main": "src/index.js",
   "repository": "https://github.com/scanf/squidex-client-manager",
   "author": "Alexander Alemayhu <alexander@alemayhu.com>",
