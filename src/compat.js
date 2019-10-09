@@ -14,7 +14,6 @@ function compatState(payload) {
 
 function compatPayload(payload) {
   const mangle = payload;
-  delete mangle.publish;
   let { data } = mangle;
 
   // Handle payload is not inside of data
@@ -26,6 +25,9 @@ function compatPayload(payload) {
       data[`${key}`] = mangle[`${key}`];
     }
   }
+
+  delete mangle.publish;
+  delete data.publish;
 
   return { requestBody: data };
 }
