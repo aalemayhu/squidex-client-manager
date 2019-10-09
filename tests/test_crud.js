@@ -88,3 +88,8 @@ test.serial('Tag', async (t) => {
     },
   });
 });
+
+test.serial('check drafts', async (t) => {
+  const filter = await client.FilterRecordsAsync('Articles', null, null)
+  t.true(filter.length > 0);
+})

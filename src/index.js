@@ -78,7 +78,7 @@ class SquidexClientManager {
         }
         req.headers.Authorization = `Bearer ${token}`;
         if (self.options.allowDrafts) {
-          req.headers['X-Unpublished'] = 'DRAFT';
+          req.headers['X-Unpublished'] = 'true';
         }
       },
     });
@@ -256,17 +256,29 @@ class SquidexClientManager {
   async FilterRecordsAsync(name, payload, fieldName) {
     await this.ensureValidClient();
     let uniqueValue = null;
+    let filter = '';
 
-    const field = payload.data[`${fieldName}`];
-    if (field && field.iv) {
-      uniqueValue = field.iv;
-    } else if (field && !field.iv) {
-      throw new Error(`Found field but .iv is ${field.iv}`);
-    } else {
-      Log.Debug('assuming unique value is null');
+    if (fieldName) {
+      const field = payload.data[`${fieldName}`];
+      if (field && field.iv) {
+        uniqueValue = field.iv;
+      } else if (field && !field.iv) {
+        throw new Error(`Found field but .iv is ${field.iv}`);
+      } else {
+        Log.Debug('assuming unique value is null');
+      }
+
+      filter = buildFilterString(`data/${fieldName}/iv`, 'eq', uniqueValue);
     }
 
-    const filter = buildFilterString(`data/${fieldName}/iv`, 'eq', uniqueValue);
+    // For now only supporting top level status
+    if (this.options.allowDrafts) {
+      if (filter.length > 0) {
+        filter += ' and ';
+      }
+      filter += `status eq 'Published' or status eq 'Draft'`
+    }
+
     const records = await this.RecordsAsync(name, {
       $filter: filter,
       top: 0,
