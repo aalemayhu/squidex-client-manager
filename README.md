@@ -1,4 +1,6 @@
-# Squidex Client Manager [![CircleCI](https://circleci.com/gh/scanf/squidex-client-manager.svg?style=svg)](https://circleci.com/gh/scanf/squidex-client-manager)
+# ⛔️ [DEPRECATED] Please use https://github.com/fortressdev/squidex-client-manager
+
+## Squidex Client Manager [![CircleCI](https://circleci.com/gh/scanf/squidex-client-manager.svg?style=svg)](https://circleci.com/gh/scanf/squidex-client-manager)
 
 [![Powered by Squidex](./GitHub/power-by.png)](https://squidex.io)
 [![npm version](https://badge.fury.io/js/squidex-client-manager.svg)](https://badge.fury.io/js/squidex-client-manager)  [![Downloads](https://img.shields.io/npm/dm/squidex-client-manager.svg)](https://npmcharts.com/compare/squidex-client-manager?minimal=true) [![install size](https://packagephobia.now.sh/badge?p=squidex-client-manager)](https://packagephobia.now.sh/result?p=squidex-client-manager)
